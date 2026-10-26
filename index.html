@@ -15,9 +15,13 @@
   <title>School & Workshop on Advanced Aspects of QFT — Bariloche 2026</title>
 
   <!-- Fonts -->
+  <!-- Original Google Fonts (kept for reference; replaced by local copies for offline use):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  -->
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
 
   <style>
     /* ── Variables ───────────────────────────────────────────────────── */
@@ -1000,6 +1004,7 @@
     </div>
     <div class="map-wrapper">
         <iframe title="Instituto Balseiro location map" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2963.0!2d-71.4141568!3d-41.1137375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x961a70cf612b607f%3A0xf2971227dcef5551!2sInstituto%20Balseiro!5e0!3m2!1sen!2sar!4v1740000000000!5m2!1sen!2sar" allowfullscreen></iframe>
+        <p class="map-offline-note" id="mapOfflineNote" hidden style="text-align:center; padding:1rem;">Map unavailable offline. <a href="https://www.google.com/maps/search/Instituto+Balseiro+Bariloche" target="_blank" rel="noopener noreferrer">Open in Google Maps</a> when online. Address: Av. Bustillo km 9.5, San Carlos de Bariloche, Argentina.</p>
     </div>
   </div>
 </section>
@@ -1032,6 +1037,21 @@
 </footer>
 
 <script>
+    // Offline support: register service worker and show map fallback when offline
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() { navigator.serviceWorker.register('sw.js').catch(function() {}); });
+    }
+    function updateMapOffline() {
+      var note = document.getElementById('mapOfflineNote');
+      var wrap = document.querySelector('.map-wrapper');
+      if (!note || !wrap) return;
+      note.hidden = navigator.onLine;
+      wrap.style.display = navigator.onLine ? '' : 'none';
+    }
+    window.addEventListener('online', updateMapOffline);
+    window.addEventListener('offline', updateMapOffline);
+    updateMapOffline();
+
     // Tab Functionality
     function openTab(evt, tabName) {
         var i, x, tablinks;
