@@ -1,0 +1,12 @@
+{
+  "name": "Simons-Balseiro QFT School & Workshop 2026",
+  "short_name": "QFT 2026",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#7a341c",
+  "icons": [
+    { "src": "Alexander-Zamolodchikov-700x467.jpeg", "sizes": "700x467", "type": "image/jpeg" }
+  ]
+}

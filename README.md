@@ -50,3 +50,13 @@ This event is supported by the **Simons Foundation**, **CONICET**, and the **Ins
 
 - **Email:** [particulas.cab@gmail.com](mailto:particulas.cab@gmail.com)
 - **Research group:** <https://sites.google.com/view/particulasycampos-cabib/home>
+
+## Offline use
+
+The site works offline after the first online visit.
+
+- Google Fonts were vendored into `assets/vendor/fonts/` (latin subset, woff2, `fonts.css`); the original `<link>` is kept as a comment in `index.html`.
+- `sw.js` precaches all pages, images and fonts and falls back to the cache when the network is unavailable (network-first when online). Bump `CACHE_VERSION` in `sw.js` when adding files.
+- The embedded Google Map and external links cannot work offline; a text fallback is shown instead.
+
+To test: serve with `python3 -m http.server`, open http://localhost:8000, reload once, then in DevTools → Network select **Offline** (or Application → Service Workers → Offline) and reload; all pages should still render with fonts.
